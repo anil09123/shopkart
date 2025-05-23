@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block carousel %}{% endblock carousel %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+         {% comment %} Saved Addresses Section  {% endcomment %}
+        <div class="col-md-6 mb-4">
+            <h3 class="mb-4">Saved Addresses</h3>
+            {% if addresses %}
+                {% for address in addresses %}
+                <a href="{% url "confirm-order" address.id %}" class="nav-link">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{ address.address_line }}, {{ address.street }},<br>
+                                {{ address.city }}, {{ address.state }} - {{ address.pin_code }}
+                            </p>
+                            <a href="{% url "edit-address" address.id %}" class="btn btn-sm btn-warning me-2">Edit</a>
+
+                            <a href="{% url "remove-address" address.id %}" class="btn btn-sm btn-danger">Remove</a>
+
+                        </div>
+                    </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-muted">No saved addresses yet.</p>
+            {% endif %}
+        </div>
+
+         {% comment %} Add Address Form  {% endcomment %}
+        <div class="col-md-6">
+            <h3 class="mb-4">Add a New Address</h3>
+            {% if messages %}
+                <div class="alert alert-success" role="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+            
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {{ address_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Add Address</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

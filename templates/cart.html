@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block carousel %}{% endblock carousel %}
+
+{% block content %}
+<div class="container-fluid p-3">
+    <div class="row">
+        <!-- Card products -->
+        <div class="col-8">
+            {% for product in mycart %}
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row g-0">
+                  <div class="col-md-4  text-center">
+                    <img src="{{ product.product.image.url }}" class="img-fluid rounded-start" alt="..." style="object-fit: contain;height: 200px;">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ product.product.name }}</h5>
+                      <p class="card-text">Price: {{ product.product.price }}</p>
+                      <div class="fw-semibold" >
+                        Quantity:
+                        <a href="{% url "update-quantity" id=product.product.id %}?q=0" class="btn btn-warning">-</a>
+                        <span>{{product.quantity}}</span>
+                        <a href="{% url "update-quantity" id=product.product.id %}?q=1" class="btn btn-primary">+</a>
+                      </div>
+
+                      <a href="{% url "remove-cart" id=product.product.id %}" class="btn btn-sm btn-danger my-3"> Remove </a>
+                      <a href="" class="btn btn-sm btn-secondary my-3"> Move to wishlisht </a>
+
+                      <span class="card-text"><small class="text-body-secondary">Last updated {{product.updated_at}}ago </small></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+            <h3>No items added</h3>
+            {% endfor %}
+        </div>
+
+
+        <!-- total amount -->
+        <div class="col-md-4">
+          <div class="row">
+            <h3 class="fw-semibold">Order Summary</h3>
+            <h6>Total Items: {{ total_items }}</h6>
+        
+            <table class="table table-bordered table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cart in mycart %}
+                <tr>
+                  <td>{{ cart.product.name|truncatechars:30 }}</td>
+                  <td class="text-center">{{ cart.quantity }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        
+            <p class="fw-semibold">GST (3%): ₹{{ gst }}</p>
+            <p>Delivery Charges: ₹0/-</p>
+            <p class="fw-bold">Total Amount: ₹{{ total_amount|add:gst }}</p>
+        
+            <a href="{% url "address" %}" class="btn btn-success w-100">Proced to Checkout</a>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block carousel%}
+{% endblock carousel %}
+{% block content %}
+
+<div class="container-fluid p-3">
+    <div class="row">
+        {% comment %} Image Section {% endcomment %}
+        <div class="col-4">
+            <div class="text-center">
+                <img src="{{product.image.url}}" alt="" width=80% style="object-fit:contain;height: 350px;">
+            </div>
+            <div class="text-center">
+                <a href="" class="btn btn-warning">Buy Now</a>
+                <a href="{% url "add-to-cart" id=product.id %}" class="btn btn-primary m-3">Add to Cart</a>
+            </div>
+
+        </div>
+        {% comment %} Detail Section {% endcomment %}
+        <div class="col-8" style="height: 100vh;overflow: hidden;">
+            <p class="fw-semibold">{{product.name}}</p>
+            <p class="fw-semibold">₹{{product.price}}<span class="text-secondary"> -<del>{{product.price|add:product.price}}</del></span>   <span class="text-success">50% off</span></p>
+           
+            <div>
+                <h5>Available offers</h5>
+                {% if product.category.name == "mobiles" or product.category.name == "laptops" %}
+                <ul>
+                    <li>Bank Offer5% Unlimited Cashback on Flipkart Axis Bank Credit CardT&C</li>
+                    <li>Bank Offer10% instant discount on SBI Credit Card EMI Transactions, up to ₹1,500 on orders of ₹5,000 and aboveT&C</li>
+                    <li>Bank Offer10% off up to ₹1,000 on all Axis Bank Credit Card (incl. migrated ones) EMI Txns of ₹7,490 and aboveT&C</li>
+                </ul>
+
+                {% else%}
+                <ul>
+                    <li>Bank Offer5% Unlimited Cashback on Flipkart Axis Bank Credit CardT&C</li>
+                </ul>
+                
+                
+                {% endif %}
+ 
+            </div>
+            <div>
+                <p class="fw-semibold">Delivery by - {{date}} | <span class="text-success">Free</span></p>
+                <p class="fw-semibold">Highlights</p>
+               
+                <ul>
+                    {% for line in product.description.splitlines %}
+                    <li>{{line}}</li>
+                    
+                    {% endfor %}
+                </ul>
+            </div>
+            
+
+        </div>
+    </div>
+    <div class="row m-3" >
+        {% for product in related_products %}
+        <div class="col">
+            <a href="{% url 'product-details' id=product.id %}" class="text-decoration-none text-dark">
+                <div class="card h-100 shadow-sm">
+                    <div class="d-flex align-items-center justify-content-center" style="height: 200px; padding: 5px;">
+                        <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="Product Image" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h6 class="card-title">{{ product.name|truncatechars:20 }}</h6>
+                        <p class="card-text small">{{ product.description|truncatewords:8 }}</p>
+                        <p class="card-text fw-bold text-dark">₹{{ product.price }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <p>No Product Found</p>
+        {% endfor %}
+        
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

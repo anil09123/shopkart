@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <h3>Verify OTP</h3>
+        <label for="">Enter OTP:</label>
+        <input type="text" name="otp" placeholder="enter 6 digits otp" required>
+        <br><br>
+        <input type="submit" value="Verify OTP">
+        
+    </form>
+
+    {% if messages %}
+    <ul>
+        {%for message in messages%}
+        <li style='color:red'>
+            {{message}}
+        </li>
+        
+        
+        {% endfor %}
+    </ul>
+    
+    {% endif %}
+</body>
+</html>

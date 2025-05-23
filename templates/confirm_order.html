@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block carousel %}
+{% endblock carousel %}
+
+
+
+{% block header %}
+{% endblock header %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row w-50 bg bg-border-tertiary shadow mx-auto">
+        <h2 class="text-center text-success">Confirm Your Order</h2>
+        <div>
+            <h3 class="fw-semibold">Order Summary</h3>
+            <h6>Total Items: {{ total_items }}</h6>
+        
+            <table class="table table-bordered table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cart in mycart %}
+                <tr>
+                  <td>{{ cart.product.name|truncatechars:30 }}</td>
+                  <td class="text-center">{{ cart.quantity }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        
+            <p class="fw-semibold">GST (3%): ₹{{ gst }}</p>
+            <p>Delivery Charges: ₹0/-</p>
+            <p class="fw-bold">Total Amount: ₹{{ total_amount|add:gst }}</p>
+
+            <p class="text-dark fw-semibold fs-4">Shipping Address</p>
+            <p class="card-text fw-semibold">
+                {{ address.address_line }}, {{ address.street }},<br>
+                {{ address.city }}, {{ address.state }} - {{ address.pin_code }}
+            </p>
+        
+            <a href="{% url "payment" id=address.id %}" class="btn btn-success w-100">Proced to Pay</a>
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+
+
+{% block footer %}
+{% endblock footer %}
