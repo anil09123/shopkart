@@ -103,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -119,6 +120,8 @@ import os
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 MEDIA_URL = 'media/'
@@ -142,4 +145,4 @@ EMAIL_HOST_USER = 'anilnavik7486@gmail.com'
 EMAIL_HOST_PASSWORD = 'bvlh vsec fkxz dhpe'
 
 
-CSRF_TRUSTED_ORIGINS = ["https://shopkart-jqps.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ['https://shopkart-jqps.onrender.com']
