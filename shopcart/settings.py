@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^f7q@)g50ieiykdbby=dg9@psz_6^4oufrdn#mie14$qkum8if
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://shopkart-jqps.onrender.com','52.66.239.49']
 
 
 # Application definition
@@ -142,4 +142,4 @@ EMAIL_HOST_USER = 'anilnavik7486@gmail.com'
 EMAIL_HOST_PASSWORD = 'bvlh vsec fkxz dhpe'
 
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ["https://shopkart-jqps.onrender.com"]
