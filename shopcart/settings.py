@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^f7q@)g50ieiykdbby=dg9@psz_6^4oufrdn#mie14$qkum8if'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://shopkart-jqps.onrender.com','52.66.239.49']
+ALLOWED_HOSTS = ['https://shopkart-jqps.onrender.com','*']
 
 
 # Application definition
